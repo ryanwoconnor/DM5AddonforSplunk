@@ -12,7 +12,7 @@ for file in os.listdir(directory):
     if file.endswith(".sml"):
     	filetime = os.path.getmtime(directory+file)
     	now = time.time()
-    	five_minutes_ago = now-300
+    	five_minutes_ago = now-600
     	if filetime > five_minutes_ago:
 			tree = ET.parse(os.path.join(directory, file))
 			root = tree.getroot()
