@@ -1,0 +1,15 @@
+<setup>
+  <block title="Configure This App">
+    <text>Setup page with custom endpoints</text>
+  </block>
+
+  <block title="A text input"
+         endpoint="dm5/dm5endpoint" entity="setupentity">
+
+      <input field="dm5_path">
+        <label>Enter your DM5 Location</label>
+        <type>text</type>
+      </input>
+
+  </block>
+</setup>

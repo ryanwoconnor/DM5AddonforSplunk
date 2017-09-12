@@ -2,14 +2,17 @@ import xml.etree.ElementTree as ET
 import os
 import time
 import datetime
+import splunk.clilib.cli_common 
+import json
 
-directory='../sample/'
+settings = splunk.clilib.cli_common.getConfStanza('dm5','setupentity')
+directory= settings['dm5_path']
 
 for file in os.listdir(directory):
     if file.endswith(".sml"):
     	filetime = os.path.getmtime(directory+file)
     	now = time.time()
-    	five_minutes_ago = now-3600
+    	five_minutes_ago = now-300
     	if filetime > five_minutes_ago:
 			tree = ET.parse(os.path.join(directory, file))
 			root = tree.getroot()
