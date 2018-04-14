@@ -9,8 +9,13 @@ settings = splunk.clilib.cli_common.getConfStanza('dm5','setupentity')
 directory= settings['dm5_path']
 
 for file in os.listdir(directory):
-	with open(os.path.dirname(os.path.dirname( __file__ ))+'/log/file_tracker.log') as f:
-		content = f.readlines()
+	path = os.path.dirname(os.path.dirname(__file__))+'/log/file_tracker.log'
+	if os.path.isfile(path):
+		with open(os.path.dirname(os.path.dirname( __file__ ))+'/log/file_tracker.log') as f:
+			content = f.readlines()
+	else:
+		createThefile = open(os.path.dirname(os.path.dirname( __file__ ))+'/log/file_tracker.log', 'w+')
+		createThefile.close()
 	if file+'\n' in content:
 		continue
 	else:
@@ -31,7 +36,7 @@ for file in os.listdir(directory):
 				pattern = '%Y-%m-%dT%H:%M:%S'
 				epoch = int(mktime(strptime(date_time.text, pattern)))
 
-				print str(epoch)+' event=dive_summary duration='+duration.text+ ' max_depth='+max_depth.text+' software_version='+software_version.text+' serial_number='+serial_number.text+ ' device_name='+device_name.text
+				print str(epoch)+' event=dive_summary duration='+duration.text+ ' max_depth='+max_depth.text+' software_version='+software_version.text+' serial_number='+serial_number.text+ ' device_name='+'"'+device_name.text+'"'
 
 				i = -1
 				for samples in root.findall('./{http://www.suunto.com/schemas/sml}DeviceLog/{http://www.suunto.com/schemas/sml}Samples'):
